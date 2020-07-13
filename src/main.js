@@ -3,6 +3,10 @@ import App from './App.vue'
 import router from './router/router.js';
 import VueShowdown from 'vue-showdown';
 
+
+require('./wat.js');
+
+
 Vue.use(VueShowdown, {
   flavor: 'vanilla',
   options: {

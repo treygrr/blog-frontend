@@ -512,6 +512,7 @@
     .TextWrapper::after {
         display: none;
     }
+    
     .LeftArrow {
         bottom: calc(100% - 50px);
         border-top-right-radius: 0;

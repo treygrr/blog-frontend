@@ -4,7 +4,7 @@
             <div ref="Link" :class="`${currentRoute === child.name? 'CurrentSlide':''} MenuLink`" v-for="(child, k) in route.children" :key="k">
                 <div @click="menuClicked($event, child.name, k)">{{ child.title }}</div>
             </div>
-            <div :v-if="currentElementPosition.x" ref="MenuSlide" id="MenuSlide" :class="`MenuSlide ${isMoving? animationToUse:''}`" :style="`left: ${currentElementPosition.x - 14}px; width: ${currentElementPosition.width}px; height: ${currentElementPosition.height - 7}px;`"></div>
+            <div :v-if="currentElementPosition.x" ref="MenuSlide" id="MenuSlide" :class="`MenuSlide ${isMoving? animationToUse:''}`" :style="`top: ${currentElementPosition.y - 10}px;left: ${currentElementPosition.x - 10}px; width: ${currentElementPosition.width}px; height: ${currentElementPosition.height}px;`"></div>
         </div>
     </div>
 </template>
@@ -21,33 +21,36 @@
     color: white;
     -webkit-text-stroke: 1px rgb(0, 0, 0);
     z-index: 1;
-    margin-left: 7px;
     max-height: 56px;
     padding-left: 25px;
     padding-right: 25px;
-    line-height: 54px;
+    line-height: 56px;
+}
+
+#MenuSlide {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .3), 0 1px 3px 0 rgba(0, 0, 0, .3);
+    
 }
 
 .MenuSlide {
-    margin-top: 3px;
     position: absolute;
     border-radius: 8px;
-    background: linear-gradient(151deg, rgba(200, 32, 144, .5), rgba(106, 20, 209, .5), #146bd1, #1ed114, rgba(209, 147, 20, .5), rgba(209, 20, 20, .5));
+    background: linear-gradient(151deg, rgba(200, 32, 144, 1), rgba(106, 20, 209, 1), #146bd1, #1ed114, rgba(209, 147, 20, 1), rgba(209, 20, 20, 1));
     background-size: 1200% 1200%;
     animation: btn-bg 15s ease infinite;
-    transition-duration: .4s;
+    transition-duration: .1s;
     transition-property: left right height width;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .3), 0 1px 3px 0 rgba(0, 0, 0, .3);
+    transition-timing-function: linear;
+
 }
 
 .MenuSlidingAnimationLeft {
-     animation: shakeReverse .5s;
+    animation: shakeReverse .2s linear .1s;
 
 }
 
 .MenuSlidingAnimationRight {
-     animation: shake .5s;
-
+    animation: shake .2s ease-out .1s;
 }
 
 @keyframes btn-bg {
@@ -57,30 +60,14 @@
 }
 
 @keyframes shake {
-  0% {transform: translate3d(1px, 0, 0);}
-  10% {transform: translate(80px, 0, 0);}
-  20% {transform: translate(-80px, 0, 0);}
-  30% {transform: translate(60px, 0, 0);}
-  40% {transform: translate(-60px, 0, 0);}
-  50% {transform: translate(40px, 0, 0);}
-  60% {transform: translate(-40px, 0, 0);}
-  70% {transform: translate(30px, 0, 0);}
-  80% {transform: translate(-30px, 0, 0);}
-  90% {transform: translate3d(15px, 0, 0);}
-  100% {transform: translate3d(-15px, 0, 0);}
+  0% {transform:translate(0px);}
+  50% {transform:translate(40px);}
+  100% {transform:translate(0px);}
 }
 @keyframes shakeReverse {
-  0% {transform: translate3d(1px, 0, 0);}
-  10% {transform: translate(-80px, 0, 0);}
-  20% {transform: translate(80px, 0, 0);}
-  30% {transform: translate(-60px, 0, 0);}
-  40% {transform: translate(60px, 0, 0);}
-  50% {transform: translate(-40px, 0, 0);}
-  60% {transform: translate(40px, 0, 0);}
-  70% {transform: translate(-30px, 0, 0);}
-  80% {transform: translate(30px, 0, 0);}
-  90% {transform: translate3d(-15px, 0, 0);}
-  100% {transform: translate3d(15px, 0, 0);}
+  0% {transform:translate(0px);}
+  50% {transform:translate(-40px);}
+  100% {transform:translate(0px);}
 }
 
 </style>
@@ -110,7 +97,7 @@ export default {
             setTimeout(() => {
                 this.isMoving = false;
                 console.log(this.isMoving)
-            }, 500)
+            }, 400)
 
             this.currentRoute = this.$router.currentRoute.name;
             if (this.currentRoute !== pathtogo){
