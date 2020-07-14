@@ -16,7 +16,6 @@
 <style scoped>
 #page {
     width: 100%;
-    max-width: 1920px;
     overflow-x: hidden;
     display: flex;
     justify-content: center;
