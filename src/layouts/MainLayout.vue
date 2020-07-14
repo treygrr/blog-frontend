@@ -42,7 +42,6 @@ main {
 
 nav {
     max-width: 1900px;
-    position: relative;
     width: 100%;
     height: 56px;
     background-color: white;

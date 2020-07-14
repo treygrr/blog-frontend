@@ -4,7 +4,14 @@
             <div ref="Link" :class="`${currentRoute === child.name? 'CurrentSlide':''} MenuLink`" v-for="(child, k) in route.children" :key="k">
                 <div @click="menuClicked($event, child.name, k)">{{ child.title }}</div>
             </div>
-            <div :v-if="currentElementPosition.x" ref="MenuSlide" id="MenuSlide" :class="`MenuSlide ${isMoving? animationToUse:''}`" :style="`top: ${currentElementPosition.y - 10}px;left: ${currentElementPosition.x - 10}px; width: ${currentElementPosition.width}px; height: ${currentElementPosition.height}px;`"></div>
+            <div :v-if="currentElementPosition.x" ref="MenuSlide" id="MenuSlide" 
+            :class="`MenuSlide ${isMoving? animationToUse:''}`" 
+            :style="`
+                top: ${currentElementPosition.y}px;
+                left: ${currentElementPosition.x}px; 
+                width: ${currentElementPosition.width}px; 
+                height: ${currentElementPosition.height}px;
+            `"></div>
         </div>
     </div>
 </template>
@@ -86,7 +93,7 @@ export default {
                 this.currentIndex = i;
             }
         })
-        this.interval = setInterval(this.updateShadowElement, 1000);
+        this.interval = setInterval(this.updateShadowElement, 100);
 
     },
     methods: {
