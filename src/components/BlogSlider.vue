@@ -2,13 +2,13 @@
     <div :class="`TotalWrapper ${expand?'TotalWrapper--Expand':''}`">
         <a name="top" ref="BackToTop"></a>
         <article :class="`BlogWrapper ${expand?'BlogWrapper--Expand':''}`" :style="`background-image: url('${image}');`">
-            <div :class="`TextWrapper ${expand?'TextWrapper--Expand':''}`">
-                <h1 class="Title">This is an example title.</h1>
-                <p class="SummaryText">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. </p>
-                <p class="WrittenBy"><span class="WrittenByText">Written By:</span>Troy Bjorn</p>
-                <p class="Date"><span class="DateText">Published:</span>January 20th, 2020</p>
-                <button @click="toggleExpand()" class="Button">Read More</button>
-            </div>
+            <blog-preview v-if="!this.expand"
+                :Title="`Title`"
+                :SummaryText="`Summary Text`"
+                :WrittenBy="`Written By`"
+                :Date="`January 20th, 2021`"
+                :Toggle="toggleExpand"
+            />
             <div class="TitleBlogTop">
                 <h1 :class="`TitleBlogTop--h1 ${expand?'TitleBlogTop--h1__Expand':''}`">This is an example title.</h1>
             </div>
@@ -311,54 +311,6 @@
     }
 }
 
-.Title {
-    font-size: 2em;
-    font-family: 'Fredoka One', Courier, monospace;
-    color: #2f3030;
-}
-
-.SummaryText {
-    font-size: 1em;
-    font-family: 'Montserrat', Courier, monospace;
-    line-height: 1.5em;
-    font-weight: 100;
-    color: #414141;
-    margin-bottom: 16px;
-}
-
-.WrittenBy {
-    font-size: 1em;
-    font-family: 'Montserrat', Courier, monospace;
-    line-height: 1.5em;
-    font-weight: 100;
-    color: #414141;
-    margin-bottom: 16px;
-}
-
-.WrittenByText {
-    font-size: 1.2em;
-    font-family: 'Fredoka One', Courier, monospace;
-    font-weight: 100;
-    padding-right: .5em;
-    color: #414141;
-}
-
-.Date {
-    font-size: 1em;
-    font-family: 'Montserrat', Courier, monospace;
-    line-height: 1.5em;
-    font-weight: 100;
-    color: #414141;
-    margin-bottom: 25px;
-}
-
-.DateText {
-    font-size: 1.2em;
-    font-family: 'Fredoka One', Courier, monospace;
-    font-weight: 100;
-    padding-right: .5em;
-    color: #414141;
-}
 
 .LeftArrow {
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .3), 0 1px 3px 0 rgba(0, 0, 0, .3);
@@ -591,12 +543,17 @@
 <script>
 import Vue from 'vue';
 
+import BlogPreview from './BlogPage/BlogPreview.vue';
+
 export default Vue.extend({
     name: 'BlodSlider',
     components: {
-        
+        BlogPreview
     },
-    mounted() {        
+    mounted() {
+        if (this.$route.query.readerview === "true") {
+            this.expand = true;
+        } 
 
     },
     methods: {
